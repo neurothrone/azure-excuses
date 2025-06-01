@@ -12,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Ahh
-
 // !: InMemory
 //builder.Services.AddSingleton<InMemoryDataStore>();
 //builder.Services.AddScoped<IExcuseRepository, ExcuseInMemoryRepository>();
