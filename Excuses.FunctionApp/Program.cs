@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
+// Ahh
+
 builder.ConfigureFunctionsWebApplication();
 
 builder.Services
