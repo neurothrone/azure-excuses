@@ -1,0 +1,34 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: excuses-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "yourStrong(!)Password"
+    ports:
+      - "1433:1433"
+    networks:
+      - excuses-network
+    volumes:
+      - sql-data:/var/opt/mssql
+
+  webapi:
+    build:
+      context: .
+      dockerfile: ./Excuses.WebApi/Dockerfile
+    container_name: excuses-webapi
+    ports:
+    - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=ExcusesDB;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;Encrypt=False"
+    depends_on:
+      - sqlserver
+    networks:
+      - excuses-network
+
+networks:
+  excuses-network:    
+
+volumes:
+  sql-data:    
