@@ -2,6 +2,7 @@ using Excuses.Persistence.EFCore.Data;
 using Excuses.Persistence.EFCore.Repositories;
 using Excuses.Persistence.Shared.Repositories;
 using Excuses.WebApi.Endpoints;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ExcusesDbContext>();
+    try
+    {
+        dbContext.Database.Migrate();
+    }
+    catch (SqlException ex) when (ex.Message.Contains("already exists"))
+    {
+        // Log if you want
+    }
 }
 
 app.UseHttpsRedirection();
