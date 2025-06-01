@@ -1,1 +1,30 @@
 
+name: docker-workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZ_CREDENTIALS }}
+
+      - name: "Log in to Azure Container Registry"
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: "Build and Push Container Image"
+        run: |
+           docker build -f ./Excuses.WebApi/Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/neurothrone/excuses-webapi .
+           docker push ${{ secrets.ACR_LOGIN_SERVER }}/neurothrone/excuses-webapi:latest
