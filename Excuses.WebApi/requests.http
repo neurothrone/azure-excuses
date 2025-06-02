@@ -1,0 +1,30 @@
+# @BaseApiUrl = http://your-web-api-url/api
+@BaseApiUrl = http://localhost:5001/api
+@ExcuseId = 4
+
+### Get all Excuses
+GET {{BaseApiUrl}}/excuses
+
+### Get Excuse by ID
+GET {{BaseApiUrl}}/excuses/{{ExcuseId}}
+
+### Add Excuse
+POST {{BaseApiUrl}}/excuses
+Content-Type: application/json
+
+{
+  "text": "Aliens abducted my homework",
+  "category": "school"
+}
+
+### Update Excuse by ID
+PUT {{BaseApiUrl}}/excuses/{{ExcuseId}}
+Content-Type: application/json
+
+{
+  "text": "I got stuck in an existential crisis",
+  "category": "general"
+}
+
+### Delete Excuse by ID
+DELETE {{BaseApiUrl}}/excuses/{{ExcuseId}}
