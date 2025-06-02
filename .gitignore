@@ -1,7 +1,5 @@
 # Sensitive files
-/Excuses.WebApi/appsettings.json
-/Excuses.WebApi/commands.md
-/Excuses.WebApi/requests.http
+appsettings.json
 
 # SQLite
 .db
