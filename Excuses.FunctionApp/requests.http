@@ -1,0 +1,36 @@
+# @BaseApiUrl = https://your-function-url/api
+@BaseApiUrl = http://localhost:7001/api
+@FunctionKey = your-function-key
+@ExcuseId = 4
+
+### Get all Excuses
+GET {{BaseApiUrl}}/excuses
+x-functions-key: {{FunctionKey}}
+
+### Get Excuse by ID
+GET {{BaseApiUrl}}/excuses/{{ExcuseId}}
+x-functions-key: {{FunctionKey}}
+
+### Add Excuse
+POST {{BaseApiUrl}}/excuses
+x-functions-key: {{FunctionKey}}
+Content-Type: application/json
+
+{
+  "text": "Aliens abducted my homework",
+  "category": "school"
+}
+
+### Update Excuse by ID
+PUT {{BaseApiUrl}}/excuses/{{ExcuseId}}
+x-functions-key: {{FunctionKey}}
+Content-Type: application/json
+
+{
+  "text": "I got stuck in an existential crisis",
+  "category": "general"
+}
+
+### Delete Excuse by ID
+DELETE {{BaseApiUrl}}/excuses/{{ExcuseId}}
+x-functions-key: {{FunctionKey}}
